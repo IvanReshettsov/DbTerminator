@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using OrcaMDF.Core.Engine;
 
 namespace WpfTerminator
 {
@@ -53,7 +54,16 @@ namespace WpfTerminator
 
         private void loadButton_Click(object sender, RoutedEventArgs e)
         {
-
+            try
+            {
+                var db = new Database(textBox.Text);
+                var dbWindow = new DbWindow(new DbRepository(db));
+                dbWindow.Show(); this.Close();
+            }
+            catch
+            {
+                Console.WriteLine("Error!");
+            }
         }
     }
 }
