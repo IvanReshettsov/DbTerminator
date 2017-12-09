@@ -23,8 +23,16 @@ namespace WpfTerminator
 
         public DbWindow(DbRepository dbRepository)
         {
+           
             InitializeComponent();
+            
+            
             _dbRepository = dbRepository;
+            
+            _dbRepository.addTablesNode(treeView, treeView.ContextMenu);
+            _dbRepository.addViewsNode(treeView, treeView.ContextMenu);
+            _dbRepository.addProgrammabilityNode(treeView, treeView.ContextMenu);
+
         }
     }
 }

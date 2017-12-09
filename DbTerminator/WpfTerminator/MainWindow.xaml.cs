@@ -26,6 +26,7 @@ namespace WpfTerminator
         {
             InitializeComponent();
         }
+        
 
         private void browseButton_Click(object sender, RoutedEventArgs e)
         {
@@ -40,6 +41,7 @@ namespace WpfTerminator
             {
                 try
                 {
+                    
                     var files = openDatabaseDialog.FileNames;
                     //var db = new Database(files);
                     textBox.Text = String.Join(", ", files.ToArray());
@@ -52,13 +54,16 @@ namespace WpfTerminator
             }
         }
 
+
         private void loadButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 var db = new Database(textBox.Text);
                 var dbWindow = new DbWindow(new DbRepository(db));
-                dbWindow.Show(); this.Close();
+                dbWindow.Show();
+                dbWindow.Title = db.Name;
+                this.Close();
             }
             catch
             {
