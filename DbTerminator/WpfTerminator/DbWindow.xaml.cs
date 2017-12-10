@@ -1,16 +1,15 @@
-﻿using System;
+﻿using System.Windows;
+using System.Web.UI.WebControls;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Forms;
+using OrcaMDF.Core.Engine;
+using OrcaMDF.Core.MetaData;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace WpfTerminator
 {
@@ -24,15 +23,56 @@ namespace WpfTerminator
         public DbWindow(DbRepository dbRepository)
         {
            
-            InitializeComponent();
-            
-            
+            InitializeComponent();    
             _dbRepository = dbRepository;
             
-            _dbRepository.addTablesNode(treeView, treeView.ContextMenu);
-            _dbRepository.addViewsNode(treeView, treeView.ContextMenu);
-            _dbRepository.addProgrammabilityNode(treeView, treeView.ContextMenu);
+            UpdateTreeView();
+        }
 
+        public void UpdateTreeView()
+        {
+            treeView.Items.Clear();
+            treeView.Items.Add(_dbRepository.createTablesNode());
+            treeView.Items.Add(_dbRepository.createViewsNode());
+            treeView.Items.Add(_dbRepository.createProgrammabilityNode());
+        }
+
+        private void ShowRows(IEnumerable<Row> rows)
+        {
+            dataGrid.Items.Clear();
+
+            if (rows.Count() > 0)
+            {
+                var ds = new DataSet();
+                var tbl = new DataTable();
+                ds.Tables.Add(tbl);
+
+                var firstRow = rows.First();
+
+                foreach (var col in firstRow.Columns)
+                    tbl.Columns.Add(col.Name);
+
+                foreach (var scannedRow in rows)
+                {
+                    var row = tbl.NewRow();
+
+                    foreach (var col in scannedRow.Columns)
+                        row[col.Name] = scannedRow[col];
+
+                    tbl.Rows.Add(row);
+                }
+
+                dataGrid.ItemsSource = tbl.AsDataView();
+            }
+        }
+
+        private void treeView_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var t = sender.GetType();
+            if (sender is System.Windows.Controls.TreeView)
+            {
+                ShowRows(_dbRepository.LoadTable((treeView.SelectedItem as TreeViewItem).Header.ToString()));
+            }
         }
     }
 }

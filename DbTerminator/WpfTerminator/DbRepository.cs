@@ -1,9 +1,12 @@
 ﻿using OrcaMDF.Core.Engine;
 using System;
-using System.Collections.Generic;
+using System.Windows.Controls;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections;
+using OrcaMDF.Core.MetaData;
+using System.Collections.Generic;
 
 namespace WpfTerminator
 {
@@ -14,24 +17,21 @@ namespace WpfTerminator
         public DbRepository(Database db)
         {
             _db = db;
-
         }
 
-        public void addTablesNode(System.Windows.Controls.TreeView rootNode, System.Windows.Controls.ContextMenu tableMenu)
+        public TreeViewItem createTablesNode()
         {
-            var treeViewItem = new System.Windows.Controls.TreeViewItem();
+            var treeViewItem = new TreeViewItem();
             treeViewItem.Header = "Tables";
-            rootNode.Items.Add(treeViewItem);
             var tables = _db.Dmvs.Tables.OrderBy(t => t.Name);
 
             foreach (var t in tables)
             {
-                var tableNode = new System.Windows.Controls.TreeViewItem();
+                var tableNode = new TreeViewItem();
                 tableNode.Header = t.Name;
                 treeViewItem.Items.Add(tableNode);
-                tableNode.ContextMenu = tableMenu;
                 // Add columns
-                var tableColumnsNode = new System.Windows.Controls.TreeViewItem();
+                var tableColumnsNode = new TreeViewItem();
                 tableColumnsNode.Header = "Columns"; 
                 tableNode.Items.Add(tableColumnsNode);
                 var columns = _db.Dmvs.Columns
@@ -47,7 +47,7 @@ namespace WpfTerminator
                 }
 
                 // Add indexes
-                var tableIndexesNode = new System.Windows.Controls.TreeViewItem();
+                var tableIndexesNode = new TreeViewItem();
                 tableIndexesNode.Header = "Indexes";
                 tableNode.Items.Add(tableIndexesNode);
                 var indexes = _db.Dmvs.Indexes
@@ -56,7 +56,7 @@ namespace WpfTerminator
 
                 foreach (var i in indexes)
                 {
-                    var indexNode = new System.Windows.Controls.TreeViewItem();
+                    var indexNode = new TreeViewItem();
                     tableIndexesNode.Items.Add(i.Name);
 
                     // Add index columns
@@ -72,39 +72,52 @@ namespace WpfTerminator
                     }
                 }
             }
+            return treeViewItem;
         }
 
-        public void addViewsNode(System.Windows.Controls.TreeView rootNode, System.Windows.Controls.ContextMenu viewMenu)
+        public TreeViewItem createViewsNode()
         {
-            var viewsNode = new System.Windows.Controls.TreeViewItem();
+            var viewsNode = new TreeViewItem();
             viewsNode.Header = "Views";
-            rootNode.Items.Add(viewsNode);
             var views = _db.Dmvs.Views.OrderBy(v => v.Name);
 
             foreach (var view in views)
             {
-                var viewNode = new System.Windows.Controls.TreeViewItem();
+                var viewNode = new TreeViewItem();
                 viewNode.Header = view.Name;
                 viewsNode.Items.Add(viewNode);
-                viewNode.ContextMenu = viewMenu;
             }
+            return viewsNode;
         }
 
-        public void addProgrammabilityNode(System.Windows.Controls.TreeView rootNode, System.Windows.Controls.ContextMenu procedureMenu)
+        public TreeViewItem createProgrammabilityNode()
         {
-            var proceduresNode = new System.Windows.Controls.TreeViewItem();
+            var proceduresNode = new TreeViewItem();
             proceduresNode.Header = "Stored Procedures";
-            rootNode.Items.Add(proceduresNode);
             var procedures = _db.Dmvs.Procedures.OrderBy(p => p.Name);
 
             foreach (var item in procedures)
             {
-                var procNode = new System.Windows.Controls.TreeViewItem();
+                var procNode = new TreeViewItem();
                 procNode.Header = item.Name;
                 proceduresNode.Items.Add(procNode);
-                procNode.ContextMenu = procedureMenu;
-            } 
+            }
+            return proceduresNode;
         }
-        
+
+        public IEnumerable<Row> LoadTable(string table)
+        {
+            IEnumerable<Row> rows = null;
+            try
+            {
+                var scanner = new DataScanner(_db);
+                rows = scanner.ScanTable(table).Take(1000);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            return rows;
+        }
     }
 }
