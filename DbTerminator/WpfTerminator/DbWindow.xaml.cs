@@ -39,37 +39,39 @@ namespace WpfTerminator
 
         private void ShowRows(IEnumerable<Row> rows)
         {
+            dataGrid.ItemsSource = null;
             dataGrid.Items.Clear();
-
-            if (rows.Count() > 0)
-            {
-                var ds = new DataSet();
-                var tbl = new DataTable();
-                ds.Tables.Add(tbl);
-
-                var firstRow = rows.First();
-
-                foreach (var col in firstRow.Columns)
-                    tbl.Columns.Add(col.Name);
-
-                foreach (var scannedRow in rows)
+            if (rows!=null && rows.Count() > 0)
                 {
-                    var row = tbl.NewRow();
+                    var ds = new DataSet();
+                    var tbl = new DataTable();
+                    ds.Tables.Add(tbl);
 
-                    foreach (var col in scannedRow.Columns)
-                        row[col.Name] = scannedRow[col];
+                    var firstRow = rows.First();
 
-                    tbl.Rows.Add(row);
+                    foreach (var col in firstRow.Columns)
+                        tbl.Columns.Add(col.Name);
+
+                    foreach (var scannedRow in rows)
+                    {
+                        var row = tbl.NewRow();
+
+                        foreach (var col in scannedRow.Columns)
+                            row[col.Name] = scannedRow[col];
+
+                        tbl.Rows.Add(row);
+                    }
+
+                    dataGrid.ItemsSource = tbl.AsDataView();
                 }
-
-                dataGrid.ItemsSource = tbl.AsDataView();
-            }
+            
+            
         }
 
         private void treeView_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             var t = sender.GetType();
-            if (sender is System.Windows.Controls.TreeView)
+            if (sender is System.Windows.Controls.TreeView && treeView.SelectedItem as TreeViewItem!=null)
             {
                 ShowRows(_dbRepository.LoadTable((treeView.SelectedItem as TreeViewItem).Header.ToString()));
             }
