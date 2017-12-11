@@ -95,7 +95,16 @@ namespace OrcaMDF.Core.Engine.SqlTypes
 				int time = BitConverter.ToInt32(value, 0);
 				int date = BitConverter.ToInt32(value, 4);
 
-				return new DateTime(1900, 1, 1).AddMilliseconds(time * CLOCK_TICK_MS).AddDays(date);
+                var dt = DateTime.Now;
+                try
+                {
+                    new DateTime(1900, 1, 1).AddMilliseconds(time * CLOCK_TICK_MS).AddDays(date);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                return dt;
 			}
 		}
 	}

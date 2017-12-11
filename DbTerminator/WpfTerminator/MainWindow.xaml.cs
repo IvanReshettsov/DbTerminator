@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using OrcaMDF.Core.Engine;
 
 namespace WpfTerminator
@@ -27,7 +16,6 @@ namespace WpfTerminator
             InitializeComponent();
         }
         
-
         private void browseButton_Click(object sender, RoutedEventArgs e)
         {
             var openDatabaseDialog = new OpenFileDialog();
@@ -40,12 +28,9 @@ namespace WpfTerminator
             if (result == System.Windows.Forms.DialogResult.OK)
             {
                 try
-                {
-                    
+                {                  
                     var files = openDatabaseDialog.FileNames;
-                    //var db = new Database(files);
                     textBox.Text = String.Join(", ", files.ToArray());
-                    //refreshTreeview();
                 }
                 catch (Exception ex)
                 {
@@ -63,12 +48,18 @@ namespace WpfTerminator
                 var dbWindow = new DbWindow(new DbRepository(db));
                 dbWindow.Show();
                 dbWindow.Title = db.Name;
-                this.Close();
+                Close();
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Error!");
+                Console.WriteLine(ex);
             }
+        }
+
+        private void loadDemoButton_Click(object sender, RoutedEventArgs e)
+        {
+            textBox.Text = @"..\..\Resources\AdventureWorks2012.mdf";
+            loadButton_Click(sender, e);
         }
     }
 }

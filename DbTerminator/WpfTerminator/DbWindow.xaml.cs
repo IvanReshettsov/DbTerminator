@@ -21,8 +21,7 @@ namespace WpfTerminator
         private DbRepository _dbRepository;
 
         public DbWindow(DbRepository dbRepository)
-        {
-           
+        {       
             InitializeComponent();    
             _dbRepository = dbRepository;
             
@@ -37,43 +36,36 @@ namespace WpfTerminator
             treeView.Items.Add(_dbRepository.createProgrammabilityNode());
         }
 
-        private void ShowRows(IEnumerable<Row> rows)
+        private void ShowTable(DataView table)
         {
             dataGrid.ItemsSource = null;
             dataGrid.Items.Clear();
-            if (rows!=null && rows.Count() > 0)
-                {
-                    var ds = new DataSet();
-                    var tbl = new DataTable();
-                    ds.Tables.Add(tbl);
 
-                    var firstRow = rows.First();
-
-                    foreach (var col in firstRow.Columns)
-                        tbl.Columns.Add(col.Name);
-
-                    foreach (var scannedRow in rows)
-                    {
-                        var row = tbl.NewRow();
-
-                        foreach (var col in scannedRow.Columns)
-                            row[col.Name] = scannedRow[col];
-
-                        tbl.Rows.Add(row);
-                    }
-
-                    dataGrid.ItemsSource = tbl.AsDataView();
-                }
-            
-            
+            dataGrid.ItemsSource = table;   
         }
 
         private void treeView_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var t = sender.GetType();
-            if (sender is System.Windows.Controls.TreeView && treeView.SelectedItem as TreeViewItem!=null)
+            if (sender is System.Windows.Controls.TreeView && treeView.SelectedItem as TreeViewItem != null)
             {
-                ShowRows(_dbRepository.LoadTable((treeView.SelectedItem as TreeViewItem).Header.ToString()));
+                var tvi = treeView.SelectedItem as TreeViewItem;
+
+                if (tvi.Tag != null)
+                {
+                    if (tvi.Tag.ToString() == "table")
+                    {
+                        ShowTable(_dbRepository.LoadTable((treeView.SelectedItem as TreeViewItem).Header.ToString()));
+                    }
+                    else if (tvi.Tag.ToString() == "view")
+                    {
+                        // ex. vSalesPerson, Views.vPersonDemographics in Adventure Works
+                        ShowTable(_dbRepository.LoadViewCode((treeView.SelectedItem as TreeViewItem).Header.ToString()));
+                    }
+                    else if (tvi.Tag.ToString() == "procedure")
+                    {
+                        ShowTable(_dbRepository.LoadProcedureCode((treeView.SelectedItem as TreeViewItem).Header.ToString()));
+                    }
+                }
             }
         }
     }

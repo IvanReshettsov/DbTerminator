@@ -131,12 +131,21 @@
     </Window.Resources>
     <Grid>
         <StackPanel Margin="0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="Select mdf file" HorizontalAlignment="Left" Width="362" FontFamily="Segoe UI Black" FontSize="36" Margin="15,30,0,0"/>
+            <Label Content="Select mdf file" HorizontalAlignment="Left" Width="362" FontFamily="Segoe UI Black" FontSize="36" Margin="20,0,0,0"/>
             <StackPanel HorizontalAlignment="Left" Height="38" VerticalAlignment="Center" Width="443" Orientation="Horizontal" Margin="20,20,0,0">
                 <TextBox x:Name="textBox" HorizontalAlignment="Left" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" Height="38" TextWrapping="Wrap" VerticalAlignment="Top" Width="347" FontSize="12"/>
                 <Button x:Name="browseButton" Content="Browse" HorizontalAlignment="Left" VerticalAlignment="Top" Width="35" Height="38" Style="{DynamicResource MyButt}" FontSize="14" Foreground="White" Click="browseButton_Click" Margin="10,0,0,0"/>
             </StackPanel>
-            <Button x:Name="loadButton" Content="-&gt;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="38" Height="38" Style="{DynamicResource ButtonStyle1}" FontSize="14" Foreground="Black" BorderBrush="Black" Background="White" RenderTransformOrigin="1,1" OverridesDefaultStyle="True" Click="loadButton_Click" Margin="0,35,0,0"/>
+            <StackPanel HorizontalAlignment="Left" Height="38" VerticalAlignment="Center" Width="443" Orientation="Horizontal" Margin="20,10,0,0">
+                <Button x:Name="loadDemoButton" Width="204" HorizontalAlignment="Left" VerticalContentAlignment="Center" HorizontalContentAlignment="Left" Background="White" FontStyle="Italic" BorderBrush="{x:Null}" Click="loadDemoButton_Click" Style="{DynamicResource MyButt}">
+                    <Button.Content>
+                        <TextBlock>
+                            <Underline>load demo (adventure works 2012)</Underline>
+                        </TextBlock>
+                    </Button.Content>
+                </Button>
+                <Button x:Name="loadButton" Content="-&gt;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="38" Height="38" Style="{DynamicResource ButtonStyle1}" FontSize="14" Foreground="Black" BorderBrush="Black" Background="White" RenderTransformOrigin="1,1" OverridesDefaultStyle="True" Click="loadButton_Click" Margin="199,0,0,0"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Window>

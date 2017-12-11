@@ -8,10 +8,8 @@
         Title="DbWindow" Height="600" Width="800">
     <Grid>
         <DockPanel LastChildFill="True" Margin="0,0,0,0">
-            <TreeView x:Name="treeView" Width="172" VerticalContentAlignment="Top" MouseLeftButtonUp="treeView_MouseLeftButtonUp"/>
-            
+            <TreeView x:Name="treeView" Width="250" VerticalContentAlignment="Top" MouseLeftButtonUp="treeView_MouseLeftButtonUp"/>
             <DataGrid x:Name="dataGrid"/>
         </DockPanel>
-
     </Grid>
 </Window>
