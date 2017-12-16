@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DbTerminator", "DbTerminator\DbTerminator.csproj", "{B4FCF204-C42B-4118-9759-88F02D5FBFAA}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfTerminator", "WpfTerminator\WpfTerminator.csproj", "{FA204851-475F-4B10-A79D-EB7B5EBABB6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrcaMDF.Core", "OrcaMDF\src\OrcaMDF.Core\OrcaMDF.Core.csproj", "{829A5C51-CB21-4DE2-9021-44F6D804D231}"
@@ -17,10 +15,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B4FCF204-C42B-4118-9759-88F02D5FBFAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4FCF204-C42B-4118-9759-88F02D5FBFAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4FCF204-C42B-4118-9759-88F02D5FBFAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4FCF204-C42B-4118-9759-88F02D5FBFAA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FA204851-475F-4B10-A79D-EB7B5EBABB6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FA204851-475F-4B10-A79D-EB7B5EBABB6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA204851-475F-4B10-A79D-EB7B5EBABB6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
