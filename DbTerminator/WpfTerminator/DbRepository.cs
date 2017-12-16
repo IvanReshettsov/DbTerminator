@@ -5,6 +5,8 @@ using System.Linq;
 using OrcaMDF.Core.MetaData;
 using System.Collections.Generic;
 using System.Data;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace WpfTerminator
 {
@@ -17,6 +19,7 @@ namespace WpfTerminator
             _db = db;
         }
 
+        List<string> _files = new List<string>();
         public TreeViewItem createTablesNode()
         {
             var treeViewItem = new TreeViewItem();
@@ -201,6 +204,17 @@ namespace WpfTerminator
             tbl.Columns.Add("Code");
             tbl.Rows.Add(code == null ? "The code can not be shown for this item." : code);
             return tbl.AsDataView();
+        }
+
+        public List<string> SaveViewedFiles(string file)
+        {
+            _files.Add(file);
+
+            using (FileStream fs = new FileStream("files.json", FileMode.OpenOrCreate))
+            {
+                File.WriteAllText(fs.Name, file);
+            }
+            return _files;
         }
     }
 }

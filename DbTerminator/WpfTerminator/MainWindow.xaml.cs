@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Forms;
 using OrcaMDF.Core.Engine;
 
+
 namespace WpfTerminator
 {
     /// <summary>
@@ -11,9 +12,11 @@ namespace WpfTerminator
     /// </summary>
     public partial class MainWindow : Window
     {
+        public event Action OnRecentlyViwed;
         public MainWindow()
         {
             InitializeComponent();
+            
         }
         
         private void browseButton_Click(object sender, RoutedEventArgs e)
