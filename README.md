@@ -18,3 +18,6 @@ Ivan Reshettsov 164 — Main application logic, testing
 3. Repository is a class designed for coupling between UI and logic, implementing saving recently viewed files into a text file and loading it into the MainWindow’s RecentlyViewed listbox. 3
 4. MainWindow provides an opportunity to download the mdf-file for converting it to a readable view. It initializes a DbWindow, designed directly for database representation and contains a listbox with recently viewed files as a part of user-friendly interface. Each file downloaded by a user is immediately saved to a .txt collection which forms the source of RecentlyViewed listbox. Additionally, the listbox contains AdventureWorks.mdf file intended for a demo-version of the project’s demonstration. 4
 5. DbWindow is designed directly for representing a database in WPF through a TreeView mode and a DataGrid. This window is loosely coupled with a ModelTerminator library via DbRepository. 5
+
+![GitHub](/1.PNG)
+![GitHub](/2.PNG)
