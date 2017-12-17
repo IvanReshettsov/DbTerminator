@@ -206,15 +206,25 @@ namespace WpfTerminator
             return tbl.AsDataView();
         }
 
-        public List<string> SaveViewedFiles(string file)
+        public void SaveViewedFiles(string file)
         {
-            _files.Add(file);
+            //File.WriteAllText("files.json", file, Formatting.Indented);
+            using (StreamWriter sw = File.CreateText(@"..\..\Resources\files.json"))
+                {
+                    JsonSerializer serializer = new JsonSerializer();
+                    serializer.Serialize(sw, file);
+                }
 
-            using (FileStream fs = new FileStream("files.json", FileMode.OpenOrCreate))
+        }
+        public void DeserializeFiles()
+        {
+            //File.WriteAllText("files.json", file, Formatting.Indented);
+            using (StreamReader sr = File.OpenText(@"..\..\Resources\files.json"))
             {
-                File.WriteAllText(fs.Name, file);
+                JsonSerializer serializer = new JsonSerializer();
+                var _files = (List<string>)serializer.Deserialize(sr, typeof(List<string>));
             }
-            return _files;
+
         }
     }
 }

@@ -140,10 +140,8 @@
                 <Label Content="Recently Viewed" VerticalContentAlignment="Center" HorizontalAlignment="Left" Width="203" FontFamily="Segoe UI Black" FontSize="15"/>
                 <Button x:Name="loadButton" Content="-&gt;" HorizontalAlignment="Right" VerticalAlignment="Top" Width="38" Height="38" Style="{DynamicResource ButtonStyle1}" FontSize="14" Foreground="Black" BorderBrush="Black" Background="White" RenderTransformOrigin="1,1" OverridesDefaultStyle="True" Click="loadButton_Click" Margin="199,0,0,0"/>
             </StackPanel>
-            <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="352" Margin="15,0,0,0" BorderBrush="{x:Null}">
-                <TextBlock>
-                    <Underline>Demo (adventure works 2012)</Underline>
-                </TextBlock>
+            <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="50" VerticalAlignment="Top" Width="352" Margin="15,0,0,0" BorderBrush="{x:Null}" SelectionChanged="listBox_SelectionChanged">
+                <TextBlock><Underline><Run Text="Demo (adventure works 2012)"/></Underline></TextBlock>
             </ListBox>
         </StackPanel>
     </Grid>
