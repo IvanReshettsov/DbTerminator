@@ -10,21 +10,23 @@ using System.Windows.Forms;
 using OrcaMDF.Core.Engine;
 using OrcaMDF.Core.MetaData;
 using System.Windows.Controls;
+using ModelTerminator;
 
 namespace WpfTerminator
 {
     /// <summary>
     /// Логика взаимодействия для DbWindow.xaml
     /// </summary>
+    
     public partial class DbWindow : Window
     {
-        private DbRepository _dbRepository;
 
+        private DbRepository _dbRepository;
+        
         public DbWindow(DbRepository dbRepository)
         {       
             InitializeComponent();    
             _dbRepository = dbRepository;
-            
             UpdateTreeView();
         }
 

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrcaMDF.Core", "OrcaMDF\src
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrcaMDF.Framework", "OrcaMDF\src\OrcaMDF.Framework\OrcaMDF.Framework.csproj", "{4D581CDB-A39C-4C0C-AE2C-6A3070B8983C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModelTerminator", "ModelTerminator\ModelTerminator.csproj", "{94B9A21F-18D6-4C14-8E23-0DCE74DDDF5F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4D581CDB-A39C-4C0C-AE2C-6A3070B8983C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D581CDB-A39C-4C0C-AE2C-6A3070B8983C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D581CDB-A39C-4C0C-AE2C-6A3070B8983C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94B9A21F-18D6-4C14-8E23-0DCE74DDDF5F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94B9A21F-18D6-4C14-8E23-0DCE74DDDF5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94B9A21F-18D6-4C14-8E23-0DCE74DDDF5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94B9A21F-18D6-4C14-8E23-0DCE74DDDF5F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

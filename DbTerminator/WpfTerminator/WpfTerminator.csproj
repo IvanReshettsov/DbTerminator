@@ -87,7 +87,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DbRepository.cs" />
     <Compile Include="DbWindow.xaml.cs">
       <DependentUpon>DbWindow.xaml</DependentUpon>
     </Compile>
@@ -124,6 +123,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ModelTerminator\ModelTerminator.csproj">
+      <Project>{94b9a21f-18d6-4c14-8e23-0dce74dddf5f}</Project>
+      <Name>ModelTerminator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OrcaMDF\src\OrcaMDF.Core\OrcaMDF.Core.csproj">
       <Project>{829A5C51-CB21-4DE2-9021-44F6D804D231}</Project>
       <Name>OrcaMDF.Core</Name>

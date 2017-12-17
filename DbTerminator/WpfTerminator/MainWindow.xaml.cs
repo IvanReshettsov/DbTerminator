@@ -7,6 +7,7 @@ using System.IO;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
+using ModelTerminator;
 
 namespace WpfTerminator
 {
@@ -15,13 +16,14 @@ namespace WpfTerminator
     /// </summary>
     public partial class MainWindow : Window
     {
-        public event Action OnRecentlyViewed;
+        private Repository _repository;
+
         public MainWindow()
         {
             InitializeComponent();
-            ShowRecentFiles();
 
-
+            _repository = new Repository();
+            ShowViewedFiles(_repository.LoadViewedFiles());
         }
         
         private void browseButton_Click(object sender, RoutedEventArgs e)
@@ -56,8 +58,9 @@ namespace WpfTerminator
                 var dbWindow = new DbWindow(new DbRepository(db));
                 dbWindow.Show();
                 dbWindow.Title = db.Name;
-                SaveViewedFiles(textBox.Text);
-                Close();
+                _repository.SaveViewedFile(textBox.Text);
+
+                this.Close();
             }
             catch (Exception ex)
             {
@@ -65,51 +68,22 @@ namespace WpfTerminator
             }
         }
 
-        private void loadDemoButton_Click(object sender, RoutedEventArgs e)
+        public void ShowViewedFiles(IEnumerable<string> files)
         {
-            textBox.Text = @"..\..\Resources\AdventureWorks2012.mdf";
-            loadButton_Click(sender, e);
-        }
-
-        public void SaveViewedFiles(string file)
-        {
-            
-            File.AppendAllText(@"..\..\files.json",JsonConvert.SerializeObject(file)/*+ Environment.NewLine*/);
-            
-
-        }
-        public List<String> DeserializeFiles()
-        {
-            List<string> _files = new List<string>();
-            using (StreamReader sr = File.OpenText(@"..\..\files.json"))
+            foreach (var file in files)
             {
-                JsonSerializer serializer = new JsonSerializer();
-
-                using (JsonTextReader jr = new JsonTextReader(sr))
-                {
-                    while (jr.Read())
-                    {
-                        var file = (string)serializer.Deserialize(jr, typeof(string));
-                        _files.Add(file);
-                    }
-                }
-            }
-
-            return _files;
-         
-        }
-
-        public void ShowRecentFiles()
-        {
-            foreach (var item in DeserializeFiles())
-            {
-                listBox.Items.Add(item);
+                listBox.Items.Add(file);
             }
         }
 
         private void listBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            textBox.Text = listBox.SelectedItem as string;
+            if (listBox.SelectedItems[0].ToString() == "Demo (adventure works 2012)") {
+                textBox.Text = @"..\..\Resources\AdventureWorks2012.mdf";
+            } else
+            {
+                textBox.Text = listBox.SelectedItem.ToString();
+            }
         }
     }
 }
